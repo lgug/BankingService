@@ -5,10 +5,16 @@ import com.finance.bank.daos.AccountDao;
 import com.finance.bank.daos.UserDao;
 import com.finance.bank.entities.Account;
 import com.finance.bank.entities.User;
+import com.finance.bank.utils.JwtManager;
+import com.finance.bank.utils.UserNotFoundException;
+import com.finance.bank.utils.WrongPasswordException;
+import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -17,24 +23,25 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    AccountDao accountDao;
+    private AccountDao accountDao;
 
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @Override
-    public Optional<User> getUserFromDbAndVerifyPassword(String username, String password) {
-        Optional<User> retrievedUser = userDao.findById(username);
-        if (retrievedUser.isPresent()) {
-            User user = retrievedUser.get();
-            Optional<Account> account = accountDao.findByUserFiscalCode(null);
+    public Optional<User> verifyUserPassword(String username, String password) throws WrongPasswordException {
+        Optional<Account> account = accountDao.findByUserFiscalCode(user.getFiscalCode());
+        if (account.isPresent()) {
+            if (!account.get().getPassword().equals(password))
+                throw new WrongPasswordException();
         }
-        return null;
+        return userDao.findById(username);
     }
 
     @Override
-    public String createJwt(String subject, String name, String permission, Date date) {
-        return null;
+    public String createJwt(String subject, String name, String permission, Date date) throws UnsupportedEncodingException {
+        Date expiringDate = new Date(date.getTime() + (1000 * 5 * 60));
+        return JwtManager.generateJwt(subject, expiringDate, name, permission);
     }
 
     @Override

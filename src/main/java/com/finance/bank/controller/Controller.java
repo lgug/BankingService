@@ -1,4 +1,4 @@
-package com.finance.bank.utils;
+package com.finance.bank.controller;
 
 import com.finance.bank.entities.User;
 import org.springframework.http.HttpHeaders;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("/api")
 public class Controller {
 
     @RequestMapping(value = "/user", method = POST)

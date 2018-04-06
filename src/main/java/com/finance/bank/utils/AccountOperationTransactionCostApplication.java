@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor @NoArgsConstructor
-public class AccountOperationInterestApplication implements AccountOperation {
+public class AccountOperationTransactionCostApplication implements AccountOperation {
 
     @Setter @Getter
-    private float interestRate;
+    private Double cost;
 
     @Override
     public Double operateOnCapital(Double capital) {
-        Double sum = (capital / 100) * interestRate;
-        return capital + sum;
+        return capital - cost;
     }
 }

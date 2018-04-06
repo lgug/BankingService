@@ -19,4 +19,6 @@ public interface AccountDao extends JpaRepository<Account, String> {
 
     @Query("SELECT a FROM Account a WHERE a.user=:userfc")
     Optional<Account> findByUserFiscalCode(@Param("userfc") String fiscalCode);
+
+
 }
