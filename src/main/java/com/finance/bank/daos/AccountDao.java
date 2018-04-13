@@ -18,7 +18,6 @@ public interface AccountDao extends JpaRepository<Account, String> {
     Optional<Account> findById(String id);
 
     @Query("SELECT a FROM Account a WHERE a.user=:userfc")
-    Optional<Account> findByUserFiscalCode(@Param("userfc") String fiscalCode);
-
+    List<Account> findByUserFiscalCode(@Param("userfc") String fiscalCode);
 
 }

@@ -21,4 +21,10 @@ public interface UserDao extends JpaRepository<User, String>{
 
     @Query(value = "SELECT u FROM User u WHERE u.familyName=:familyname", nativeQuery = true)
     Optional<User> findByFamilyName(@Param("familyname") String familyName);
+
+    @Override
+    User save(User user);
+
+    @Override
+    void delete(User user);
 }

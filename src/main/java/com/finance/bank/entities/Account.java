@@ -1,17 +1,17 @@
 package com.finance.bank.entities;
 
-import com.finance.bank.utils.AccountOperation;
+import com.finance.bank.utils.accountstatus.AccountStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -25,15 +25,14 @@ public class Account {
     @NotNull
     @Getter @Setter
     private User user;
-    @NotNull @NotEmpty
-    @Getter @Setter
-    private String password;
     @NotNull
     @Getter @Setter
     private Double capital;
     @NotNull
     @Getter @Setter
+    @DateTimeFormat(pattern = "dd/mm/yyyy")
     private Date creationDate;
-    @Getter @Setter
-    private List<AccountOperation> accountOperationList;
+    @NotNull @NotEmpty @NotBlank
+    @Setter @Getter
+    private AccountStatus status;
 }

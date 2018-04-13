@@ -1,15 +1,10 @@
 package com.finance.bank.services;
 
-
-import com.finance.bank.daos.AccountDao;
 import com.finance.bank.daos.UserDao;
-import com.finance.bank.entities.Account;
 import com.finance.bank.entities.User;
-import com.finance.bank.utils.JwtManager;
-import com.finance.bank.utils.UserNotFoundException;
-import com.finance.bank.utils.WrongPasswordException;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.Jwts;
+import com.finance.bank.utils.exceptions.UserNotFoundException;
+import com.finance.bank.utils.jwtmanagement.JwtManager;
+import com.finance.bank.utils.exceptions.WrongPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,19 +18,17 @@ import java.util.Optional;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private AccountDao accountDao;
-
-    @Autowired
     private UserDao userDao;
 
     @Override
-    public Optional<User> verifyUserPassword(String username, String password) throws WrongPasswordException {
-        Optional<Account> account = accountDao.findByUserFiscalCode(user.getFiscalCode());
-        if (account.isPresent()) {
-            if (!account.get().getPassword().equals(password))
+    public void verifyUserPassword(String username, String password) throws WrongPasswordException, UserNotFoundException {
+        Optional<User> user = userDao.findById(username);
+        if (user.isPresent()) {
+            if (!user.get().getPassword().equals(password))
                 throw new WrongPasswordException();
+        } else {
+            throw new UserNotFoundException();
         }
-        return userDao.findById(username);
     }
 
     @Override

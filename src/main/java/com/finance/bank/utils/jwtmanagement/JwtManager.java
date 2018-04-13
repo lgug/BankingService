@@ -1,4 +1,4 @@
-package com.finance.bank.utils;
+package com.finance.bank.utils.jwtmanagement;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -23,7 +23,7 @@ public class User {
     @NotNull @NotEmpty @NotBlank
     @Setter @Getter
     private String fiscalCode;
-    @NotNull
+    @NotNull @NotEmpty @NotBlank
     @Setter @Getter
     private String name;
     @NotNull @NotEmpty @NotBlank
@@ -32,5 +32,8 @@ public class User {
     @NotNull
     @Setter @Getter
     private String address;
+    @NotNull @NotEmpty
+    @Getter @Setter
+    private String password;
 
 }

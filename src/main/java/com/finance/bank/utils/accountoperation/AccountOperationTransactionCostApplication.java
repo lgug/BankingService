@@ -1,5 +1,6 @@
-package com.finance.bank.utils;
+package com.finance.bank.utils.accountoperation;
 
+import com.finance.bank.utils.exceptions.CapitalTransactionException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ public class AccountOperationTransactionCostApplication implements AccountOperat
     private Double cost;
 
     @Override
-    public Double operateOnCapital(Double capital) {
+    public Double operateOnCapital(Double capital) throws CapitalTransactionException {
         return capital - cost;
     }
 }

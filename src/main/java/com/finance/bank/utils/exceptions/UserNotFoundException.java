@@ -1,4 +1,4 @@
-package com.finance.bank.utils;
+package com.finance.bank.utils.exceptions;
 
 public class UserNotFoundException extends Exception {
 }
